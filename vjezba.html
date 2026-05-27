@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lekcija 2 — Vježba</title>
+    <style>
+        body { font-family: sans-serif; padding: 2rem; max-width: 580px; }
+        h1 { font-size: 1.3rem; color: #343a40; }
+        .zadatak { border: 1px solid #dee2e6; padding: 1rem 1.25rem; border-radius: 8px; margin: 12px 0; }
+        .zadatak h3 { margin: 0 0 10px; font-size: 0.95rem; color: #495057; }
+        input { display: block; width: 100%; padding: 9px; border: 1px solid #dee2e6; border-radius: 6px; margin: 6px 0; font-size: 14px; box-sizing: border-box; }
+        button { padding: 9px 16px; border: 1px solid #dee2e6; border-radius: 6px; cursor: pointer; background: white; margin: 3px 0; }
+        button:hover { background: #f8f9fa; }
+        .prikaz { margin-top: 8px; padding: 10px 12px; background: #f8f9fa; border-radius: 6px; min-height: 40px; font-size: 14px; }
+        .brojac { font-size: 2.5rem; font-weight: bold; color: #0d6efd; text-align: center; padding: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>Lekcija 2 — addEventListener vježba</h1>
+
+    <!-- ZADATAK 1 -->
+    <div class="zadatak">
+        <h3>Zadatak 1 — Click event s brojačem (3 boda)</h3>
+        <button id="z1gumb">Klikni me!</button>
+        <div class="brojac" id="z1broj">0</div>
+        <!--
+            Svaki klik na gumb:
+            → povećaj varijablu za 1
+            → prikaži novu vrijednost u #z1broj
+
+            (hint: varijabla mora biti IZVAN event listenera
+             da pamti vrijednost između klikova)
+        -->
+    </div>
+
+    <!-- ZADATAK 2 -->
+    <div class="zadatak">
+        <h3>Zadatak 2 — Input event (3 boda)</h3>
+        <input type="text" id="z2input" placeholder="Upiši svoje ime...">
+        <div class="prikaz" id="z2prikaz">Čekam unos...</div>
+        <!--
+            Na svako tipkanje (input event):
+            → ako je polje neprazno → prikaži "Zdravo, [ime]! 👋"
+            → ako je polje prazno  → prikaži "Čekam unos..."
+
+            (hint: input.value.trim() za provjeru je li prazno)
+        -->
+    </div>
+
+    <!-- ZADATAK 3 -->
+    <div class="zadatak">
+        <h3>Zadatak 3 — Kalkulator (4 boda)</h3>
+        <input type="number" id="z3broj1" placeholder="Prvi broj">
+        <input type="number" id="z3broj2" placeholder="Drugi broj">
+        <button id="z3gumb">Zbroji</button>
+        <div class="prikaz" id="z3rezultat">Unesi dva broja i klikni Zbroji.</div>
+        <!--
+            Klik na gumb:
+            → dohvati vrijednosti iz oba inputa
+            → pretvori ih u brojeve s parseFloat()
+            → provjeri jesu li ispravni brojevi (isNaN)
+               ako nisu → prikaži "Unesi ispravne brojeve!"
+               ako jesu → prikaži "Rezultat: [zbroj]"
+        -->
+    </div>
+<script>
+    // =============================================
+    // ZADATAK 1
+    // =============================================
+
+    const z1gumb = document.querySelector("#z1gumb");
+    const z1broj = document.querySelector("#z1broj");
+
+    let brojKlikova = 0;
+
+    z1gumb.addEventListener("click", () => {
+        brojKlikova++;
+        z1broj.textContent = brojKlikova;
+    });
+
+
+    // =============================================
+    // ZADATAK 2
+    // =============================================
+
+    const z2input = document.querySelector("#z2input");
+    const z2prikaz = document.querySelector("#z2prikaz");
+
+    z2input.addEventListener("input", () => {
+
+        if (z2input.value.trim() === "") {
+            z2prikaz.textContent = "Čekam unos...";
+        } else {
+            z2prikaz.textContent = `Zdravo, ${z2input.value}! 👋`;
+        }
+
+    });
+
+
+    // =============================================
+    // ZADATAK 3
+    // =============================================
+
+    const z3broj1 = document.querySelector("#z3broj1");
+    const z3broj2 = document.querySelector("#z3broj2");
+    const z3gumb = document.querySelector("#z3gumb");
+    const z3rezultat = document.querySelector("#z3rezultat");
+
+    z3gumb.addEventListener("click", () => {
+
+        const broj1 = parseFloat(z3broj1.value);
+        const broj2 = parseFloat(z3broj2.value);
+
+        if (isNaN(broj1) || isNaN(broj2)) {
+            z3rezultat.textContent = "Unesi ispravne brojeve!";
+        } else {
+            z3rezultat.textContent = `Rezultat: ${broj1 + broj2}`;
+        }
+
+    });
+
+
+    // =============================================
+    // Konzola (F12) ne smije imati grešaka!
+    // =============================================
+</script>
+</body>
+</html>
